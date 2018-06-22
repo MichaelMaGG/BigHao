@@ -22,8 +22,6 @@
   "keywords": [],
   "author": "Your name here",
   "devDependencies": {
-    "antd": "^3.6.2",
-    "autoprefixer-loader": "^3.2.0",
     "babel-core": "^6.0.0",
     "babel-eslint": "^6.0.0",
     "babel-loader": "^6.0.0",
@@ -41,7 +39,6 @@
     "file-loader": "^0.9.0",
     "glob": "^7.0.0",
     "isparta-instrumenter-loader": "^1.0.0",
-    "json-loader": "^0.5.7",
     "karma": "^1.0.0",
     "karma-chai": "^0.1.0",
     "karma-coverage": "^1.0.0",
@@ -64,6 +61,7 @@
     "webpack-dev-server": "^1.12.0"
   },
   "dependencies": {
+    "antd": "^3.6.3",
     "core-js": "^2.0.0",
     "normalize.css": "^4.0.0",
     "react": "^15.0.0",
