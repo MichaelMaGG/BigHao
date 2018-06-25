@@ -9,6 +9,7 @@ import { Input } from 'antd';
 import { List } from 'antd';
 
 const { Header, Footer, Content } = Layout;
+const Search = Input.Search;
 
 class AppComponent extends React.Component {
   	render() {
@@ -31,12 +32,20 @@ class AppComponent extends React.Component {
   }
 }
 
+let style1 = {
+	display: 'inline-block',
+	width: '300px'
+}
+
 function Func() {
 	return (
 		<div>
-			<AddInfo />
-			<SearchInfo />
-			<SearchButton />
+			<div style={ style1 } >
+				<AddInfo />
+			</div>
+			<div style={ style1 } >
+				<SearchInfo />
+			</div>
 		</div>
 	);
 }
@@ -44,27 +53,29 @@ function Func() {
 function AddInfo() {
 	return (
 		<div>
-			<Button type="primary">Primary</Button>
+			<Button type="primary" size="large" onClick={addInfo}>Primary</Button>
 		</div>
 	);
 }
 
+function addInfo() {
+	console.log('add addInfo');
+}
 
 function SearchInfo() {
 	return (
 		<div>
-			<Input placeholder="Basic usage" />
+			<Search placeholder="input search text"
+      				enterButton="Search"
+				    size="large"
+				    style={{ width: 600 }}
+				    onSearch={getInfo} />
 		</div>
 	);
 }
 
-
-function SearchButton() {
-	return (
-		<div>
-			<Button type="primary" icon="search">Search</Button>
-		</div>
-	);
+function getInfo() {
+	console.log("search something");
 }
 
 const data = [
