@@ -1,14 +1,16 @@
-require('normalize.css/normalize.css');
+//require('normalize.css/normalize.css');
 //require('styles/App.css');
 import 'antd/dist/antd.css';
 
 import React from 'react';
+import ReactDOM from 'react';
+import axios from 'axios';
 import { Layout } from 'antd';
 import { Button } from 'antd';
 import { Input } from 'antd';
 import { List } from 'antd';
 
-const { Header, Footer, Content } = Layout;
+const { Footer, Content } = Layout;
 const Search = Input.Search;
 
 class AppComponent extends React.Component {
@@ -16,12 +18,12 @@ class AppComponent extends React.Component {
     return (
     	<div>
       		<Layout>
-      		<Header>Header</Header>
+      		<Footer>Welcome to BigHao</Footer>
       		<Content>
       			<div>
       				<Func />
       			</div>
-      			<div>
+      			<div id='info'>
       				<ShowInfo />
       			</div>
       		</Content>
@@ -52,8 +54,8 @@ function Func() {
 
 function AddInfo() {
 	return (
-		<div>
-			<Button type="primary" size="large" onClick={addInfo}>Primary</Button>
+		<div style={{ textAlign: 'right' }}>
+			<Button type="primary" size="large" onClick={addInfo}>添加信息</Button>
 		</div>
 	);
 }
@@ -65,8 +67,8 @@ function addInfo() {
 function SearchInfo() {
 	return (
 		<div>
-			<Search placeholder="input search text"
-      				enterButton="Search"
+			<Search placeholder="请输入"
+      				enterButton="查找"
 				    size="large"
 				    style={{ width: 600 }}
 				    onSearch={getInfo} />
@@ -74,17 +76,21 @@ function SearchInfo() {
 	);
 }
 
+var data = [];
+
 function getInfo() {
-	console.log("search something");
+	axios.get('http://localhost:8080/user')
+		.then(function (response) {
+	    	console.log(response.data);
+	    	data = response.data;
+	    	ReactDOM.render(ShowInfo, document.getElementById('info'))
+		})
+		.catch(function (error) {
+	    	console.log(error);
+	  	});
 }
 
-const data = [
-  'Racing car sprays burning fuel into crowd.',
-  'Japanese princess to wed commoner.',
-  'Australian walks 100km after outback crash.',
-  'Man charged over missing wedding girl.',
-  'Los Angeles battles huge wildfires.'
-];
+
 
 function ShowInfo() {
 	return (
@@ -95,7 +101,7 @@ function ShowInfo() {
 		      footer={<div>Footer</div>}
 		      bordered
 		      dataSource={data}
-		      renderItem={item => (<List.Item>{item}</List.Item>)}
+		      renderItem={item => (<List.Item>{item.name}</List.Item>)}
 		    />
 		</div>
 	)
